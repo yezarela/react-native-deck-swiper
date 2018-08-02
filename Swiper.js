@@ -196,18 +196,6 @@ class Swiper extends Component {
       })
     }
     
-    if (isSwipingRight) {
-      Animated.timing(this.state.stackCardOpacity, {
-        toValue: 1,
-        useNativeDriver: true
-      }).start();
-    } else if (isSwipingLeft) {
-      Animated.timing(this.state.stackCardOpacity, {
-        toValue: 1,
-        useNativeDriver: true
-      }).start();
-    }
-
     return Animated.event([null, this.createAnimatedEvent()])(
       event,
       gestureState
@@ -465,6 +453,11 @@ class Swiper extends Component {
           tension: this.props.stackAnimationTension,
           useNativeDriver: true
         }).start()
+        
+        Animated.timing(this.state.stackCardOpacity, {
+          toValue: 1,
+          useNativeDriver: true
+        }).start();
 
         cardPosition++
       }
