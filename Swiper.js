@@ -28,6 +28,7 @@ class Swiper extends Component {
       panResponderLocked: false,
       labelType: LABEL_TYPES.NONE,
       slideGesture: false,
+      stackCardOpacity: new Animated.Value(0),
       ...this.rebuildStackAnimatedValues(props.cards, props.cardIndex)
     }
   }
@@ -194,6 +195,11 @@ class Swiper extends Component {
         slideGesture: true
       })
     }
+    
+    Animated.timing(this.state.stackCardOpacity, {
+      toValue: 1,
+      useNativeDriver: true
+    }).start();
 
     return Animated.event([null, this.createAnimatedEvent()])(
       event,
@@ -567,6 +573,7 @@ class Swiper extends Component {
     this.cardStyle,
     {
       zIndex: index * -1,
+      opacity: this.state.stackCardOpacity,
       transform: [{ scale: this.state[`stackScale${index}`] }, { translateY: this.state[`stackPosition${index}`] }]
     },
     this.customCardStyle
